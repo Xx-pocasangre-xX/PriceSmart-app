@@ -98,6 +98,12 @@ loginController.login = async (req, res) => {
       { expiresIn: config.JWT.expiresIn }
     );
 
+    const token = jsonwebtoken.sign(
+      { id: userFound._id, userType },
+      config.JWT.secret,
+      { expiresIn: config.JWT.expiresIn }
+    );
+
     res.cookie("authToken", token, {
       maxAge: 24 * 60 * 60 * 1000,
       path: "/",

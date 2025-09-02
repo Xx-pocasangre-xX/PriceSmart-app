@@ -1,5 +1,6 @@
 // Importo todo lo de la libreria de Express
 import express from "express";
+
 import productsRoutes from "./src/routes/products.js";
 import customersRoutes from "./src/routes/customers.js";
 import employeeRoutes from "./src/routes/employees.js";
@@ -14,20 +15,25 @@ import passwordRecoveryRoutes from "./src/routes/passwordRecovery.js";
 import blogRoutes from "./src/routes/blog.js";
 import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
 import salesRoutes from "./src/routes/sales.js";
+import cors from "cors";
 
 // Creo una constante que es igual a la libreria que importé
 const app = express();
+
+// Permitir recibir JSON y datos de formularios
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Que acepte cookies
 app.use(cookieParser());
 
 // Definir las rutas de las funciones que tendrá la página web
-app.use("/api/products", validateAuthToken(["admin"]), productsRoutes);
+app.use("/api/products", validateAuthToken(["Admin"]), productsRoutes);
 app.use("/api/customers", customersRoutes);
 app.use("/api/employee", employeeRoutes);
 app.use("/api/branches", branchesRoutes);
 app.use("/api/reviews", reviewsRoutes);
-b;
 
 app.use("/api/registerEmployees", registerEmployeesRoutes);
 app.use("/api/login", loginRoutes);
